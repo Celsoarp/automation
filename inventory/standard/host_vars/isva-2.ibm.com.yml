@@ -1,0 +1,35 @@
+policyserver_runtime:
+  configuration:
+    admin_pwd: "{{ admin_pwd }}"
+    ps_mode: "remote"
+    user_registry: "ldap"
+    isam_host: 192.168.42.130
+    isam_port: 7135
+    domain: Default
+    ldap_host: 192.168.42.130
+    ldap_port: 636
+    admin_cert_lifetime: 1460
+    ldap_ssl_db: Registry_Keystore.kdb
+
+
+load_signer_certificates:
+  - kdb_id: Registry_Keystore
+    label: isva-3-ldap
+    server: 192.168.42.130
+    port: 636
+
+create_certificate_databases:
+  - kdb_name: Registry_Keystore
+
+interfaces:
+  - label:  '1.1'
+    addresses:
+      - address: "192.168.42.120"
+        maskOrPrefix: "24"
+        allowManagement: true
+        enabled: true
+      - address: "192.168.42.121"
+        maskOrPrefix: "24"
+        allowManagement: false
+        enabled: true
+

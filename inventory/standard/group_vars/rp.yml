@@ -1,0 +1,18 @@
+instances:
+  # create default instance (appliance based)
+  - inst_name: default
+    configuration:
+      host: "{{ inventory_hostname }}"
+      listening_port: 7234
+      admin_id: sec_master
+      admin_pwd: "{{ admin_pwd }}"
+      http_yn: 'no'
+      http_port: 80
+      https_yn: 'yes'
+      https_port: 443
+      nw_interface_yn: 'yes'
+      ip_address: "{{ interfaces[0].addresses[1].address }}"
+      ssl_yn: "on"
+      key_file: "Registry_Keystore.kdb"
+      ssl_port: "636"
+

@@ -1,0 +1,6 @@
+[isva]
+isva-conf ansible_isam_port=9443
+
+[isva:vars]
+ansible_connection=ibm.isam.isam
+

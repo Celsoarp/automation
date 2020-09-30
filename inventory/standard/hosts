@@ -1,0 +1,15 @@
+[isva:children]
+rp
+pd
+
+[rp]
+isva-1.ibm.com
+isva-2.ibm.com
+
+[pd]
+isva-1.ibm.com
+isva-3.ibm.com
+
+[isva:vars]
+ansible_connection=ibm.isam.isam
+

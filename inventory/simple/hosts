@@ -1,0 +1,6 @@
+[isva]
+isva-1.ibm.com
+
+[isva:vars]
+ansible_connection=ibm.isam.isam
+

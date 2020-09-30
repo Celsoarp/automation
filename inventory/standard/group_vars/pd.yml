@@ -1,0 +1,9 @@
+policyserver_runtime:
+  configuration:
+    admin_pwd: "{{ admin_pwd }}"
+    ps_mode: "local"
+    user_registry: "local"
+    ldap_pwd: "{{ ldap_pwd }}"
+    clean_ldap: "true"
+    admin_cert_lifetime: 1460
+    ssl_compliance: "none"

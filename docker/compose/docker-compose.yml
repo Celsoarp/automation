@@ -1,0 +1,58 @@
+version: '3'
+services:
+
+#
+# Security Verify Access Containers
+#
+
+  isva-conf:
+    image: ibmcom/verify-access:${ISVA_VERSION}
+    container_name: isva-conf
+    hostname: isva-conf
+    environment:
+      - SERVICE=config
+      - CONTAINER_TIMEZONE=${TIMEZONE}
+    ports:
+      - 9443:9443
+    cap_add:
+      - SYS_PTRACE
+      - SYS_RESOURCE
+    depends_on:
+      - isva-ldap
+
+  isva-webseal:
+    image: ibmcom/verify-access:${ISVA_VERSION}
+    container_name: isva-webseal
+    hostname: isva-webseal
+    environment:
+      - SERVICE=webseal
+      - INSTANCE=${WEBSEAL_INSTANCE_NAME}
+      - CONFIG_SERVICE_USER_NAME=cfgsvc
+      - CONFIG_SERVICE_USER_PWD=${CFG_USER_PWD}
+      - CONFIG_SERVICE_URL=https://isva-conf:9443/shared_volume
+      - AUTO_RELOAD_FREQUENCY=30
+      - CONTAINER_TIMEZONE=${TIMEZONE}
+    ports:
+      - "${WEBSEAL_HTTPS_PORT}:443"
+    depends_on:
+      - isva-ldap
+    cap_add:
+      - SYS_PTRACE
+      - SYS_RESOURCE
+
+#
+# Service Containers
+#
+
+  isva-ldap:
+    image: ibmcom/verify-access-openldap:${LDAP_VERSION}
+    container_name: isva-ldap
+    hostname: isva-ldap
+    environment:
+      - LDAP_ADMIN_PASSWORD=${LDAP_PASSWORD}
+      - LDAP_CONFIG_PASSWORD=${LDAP_CONFIG_PASSWORD}
+      - LDAP_BASE_DN=${LDAP_BASE_DN}
+      - LDAP_DOMAIN=${LDAP_DOMAIN}
+    ports:
+      - 14636:636
+
